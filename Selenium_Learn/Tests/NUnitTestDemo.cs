@@ -1,4 +1,5 @@
-﻿using Selenium_Learn.Pages;
+﻿using OpenQA.Selenium.Edge;
+using Selenium_Learn.Pages;
 namespace Selenium_Learn.Tests
 {
     [TestFixture("admin", "password")]
@@ -18,9 +19,22 @@ namespace Selenium_Learn.Tests
         [SetUp]
         public void SetUp()
         {
-            _driver = new ChromeDriver();
+            _driver = GetDriverType("chrome");
             _driver.Navigate().GoToUrl("http://eaapp.somee.com/");
             _driver.Manage().Window.Maximize();
+        }
+
+        private IWebDriver GetDriverType(string driver)
+        {
+            if(driver == "chrome")
+            {
+                _driver = new ChromeDriver();
+            }
+            else if (driver == "edge")
+            {
+                _driver = new EdgeDriver();
+            }
+            return _driver;
         }
 
         [Test]
