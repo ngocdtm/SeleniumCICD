@@ -2,24 +2,26 @@
 using Selenium_Learn.Pages;
 namespace Selenium_Learn.Tests
 {
-    [TestFixture("admin", "password")]
+    [TestFixture("admin", "password", "chrome")]
     public class NUnitTestDemo
     {
         private IWebDriver _driver;
         private readonly string userName;
         private readonly string password;
+        private readonly string driverType;
 
         public string Username { get; }
 
-        public NUnitTestDemo(string userName, string password)
+        public NUnitTestDemo(string userName, string password, string driverType)
         {
             this.userName = userName;
             this.password = password;
+            this.driverType = driverType;
         }
         [SetUp]
         public void SetUp()
         {
-            _driver = GetDriverType("chrome");
+            _driver = GetDriverType(driverType);
             _driver.Navigate().GoToUrl("http://eaapp.somee.com/");
             _driver.Manage().Window.Maximize();
         }
