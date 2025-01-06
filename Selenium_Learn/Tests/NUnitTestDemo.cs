@@ -29,15 +29,13 @@ namespace Selenium_Learn.Tests
 
         private IWebDriver GetDriverType(DriverType driverType)
         {
-            if(driverType == DriverType.Chrome)
+
+            return driverType switch
             {
-                _driver = new ChromeDriver();
-            }
-            else if (driverType == DriverType.Edge)
-            {
-                _driver = new EdgeDriver();
-            }
-            return _driver;
+                DriverType.Chrome => new ChromeDriver(),
+                DriverType.Edge => new EdgeDriver(),
+                _ => _driver
+            };
         }
 
         [Test]
