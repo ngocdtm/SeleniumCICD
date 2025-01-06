@@ -1,18 +1,19 @@
 ﻿using OpenQA.Selenium.Edge;
+using Selenium_Learn.Driver;
 using Selenium_Learn.Pages;
 namespace Selenium_Learn.Tests
 {
-    [TestFixture("admin", "password", "chrome")]
+    [TestFixture("admin", "password", DriverType.Edge)]
     public class NUnitTestDemo
     {
         private IWebDriver _driver;
         private readonly string userName;
         private readonly string password;
-        private readonly string driverType;
+        private readonly DriverType driverType;
 
         public string Username { get; }
 
-        public NUnitTestDemo(string userName, string password, string driverType)
+        public NUnitTestDemo(string userName, string password, DriverType driverType)
         {
             this.userName = userName;
             this.password = password;
@@ -26,13 +27,13 @@ namespace Selenium_Learn.Tests
             _driver.Manage().Window.Maximize();
         }
 
-        private IWebDriver GetDriverType(string driver)
+        private IWebDriver GetDriverType(DriverType driverType)
         {
-            if(driver == "chrome")
+            if(driverType == DriverType.Chrome)
             {
                 _driver = new ChromeDriver();
             }
-            else if (driver == "edge")
+            else if (driverType == DriverType.Edge)
             {
                 _driver = new EdgeDriver();
             }
