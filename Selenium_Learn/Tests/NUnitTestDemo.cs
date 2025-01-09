@@ -1,4 +1,6 @@
-﻿using OpenQA.Selenium.Edge;
+﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
+using OpenQA.Selenium.Edge;
 using Selenium_Learn.Driver;
 using Selenium_Learn.Pages;
 namespace Selenium_Learn.Tests
@@ -25,6 +27,7 @@ namespace Selenium_Learn.Tests
             _driver = GetDriverType(driverType);
             _driver.Navigate().GoToUrl("http://eaapp.somee.com/");
             _driver.Manage().Window.Maximize();
+            SetupExtentReports();
         }
 
         private IWebDriver GetDriverType(DriverType driverType)
@@ -38,6 +41,17 @@ namespace Selenium_Learn.Tests
             };
         }
 
+        private void SetupExtentReports()
+        {
+            var extentReport = new ExtentReports();
+            var spark = new ExtentSparkReporter("Test Report.html");
+            extentReport.AttachReporter(spark);
+            extentReport.AddSystemInfo("OS", "Window 11");
+            extentReport.AddSystemInfo("Browser", driverType.ToString());
+            var extentTest = extentReport.CreateTest("Login Test with POM").Log(Status.Pass, "Extent Report initialized");
+            extentReport.Flush();
+
+        }
         [Test]
         public void TestWithPOM()
         {
